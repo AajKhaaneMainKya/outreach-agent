@@ -86,3 +86,7 @@ node deploy/vercel/test-cloud.mjs
 ```
 
 The repository contains source, policy, prompts, schemas, UI, deployment code and tests. It excludes credentials, saved prospects, outcomes, private settings, original PDF and runtime environments. A fresh clone does not include the owner's live workspace data.
+
+## Apollo individual contacts
+
+Optional practice-scoped Apollo search is available to the contact-search specialist. Keys remain private in WSL. Work-email enrichment is an explicit operator command with a local attempt cap; agents cannot enrich or send. See [Apollo setup](docs/APOLLO.md). This does not change VJ's approved channels or business-number-only rule.
