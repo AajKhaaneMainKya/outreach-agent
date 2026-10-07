@@ -45,7 +45,7 @@ def connections(source="web"):
     if not os.environ.get('HERMES_MODEL'):missing.append('Hermes subscription model')
     if not a.get('logged_in'):missing.append('ChatGPT sign-in in WSL')
     if a.get('rate_limited'):missing.append('ChatGPT subscription allowance reset')
-    return {'apollo':bool(os.environ.get('APOLLO_API_KEY')),'places':bool(os.environ.get('GOOGLE_PLACES_API_KEY')),'hermes_model':bool(os.environ.get('HERMES_MODEL')),
+    return {'places':bool(os.environ.get('GOOGLE_PLACES_API_KEY')),'hermes_model':bool(os.environ.get('HERMES_MODEL')),
       'chatgpt_signed_in':bool(a.get('logged_in')),'strategy_loaded':bool(playbook.policy()),'missing':missing}
 
 def settings(data):
@@ -165,7 +165,6 @@ def hermes(research,s,candidate_id=None):
     env={k:v for k,v in os.environ.items() if k in ('PATH','HOME','LANG','TMPDIR','SSL_CERT_FILE','GTM_DATA_DIR')}
     env.update(HERMES_SOURCE=str(source),HERMES_MODEL=model,GTM_PROJECT=str(ROOT))
     if os.environ.get('GOOGLE_PLACES_API_KEY'):env['GOOGLE_PLACES_API_KEY']=os.environ['GOOGLE_PLACES_API_KEY']
-    if os.environ.get('APOLLO_API_KEY'):env['APOLLO_API_KEY']=os.environ['APOLLO_API_KEY']
     payload={'workflow':'playbook','task':'research','candidate_id':candidate_id,'authoritative_policy':playbook.policy(),
       'prospect':{'campaign':s,'research':research,'output_contract':'Extract only source-backed fact values with evidence references; unknowns must be null.'}}
     try:r=subprocess.run([str(python),str(ROOT/'scripts/hermes_worker.py')],input=json.dumps(payload),text=True,capture_output=True,timeout=900,cwd=ROOT/'data',env=env)

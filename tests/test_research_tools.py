@@ -12,18 +12,6 @@ class ResearchToolTests(unittest.TestCase):
    c.execute('INSERT INTO playbook_runs VALUES(?,?,?,?,?)',(self.rid,json.dumps(self.s),'awaiting_review',None,db.now()))
    c.execute('INSERT INTO playbook_candidates VALUES(?,?,?,?,?,?,?,?,?,?)',(self.cid,self.rid,'p1','needs_verification',json.dumps(self.place),json.dumps(self.research),'{}','{}',None,db.now()))
   self.session=ResearchSession(copy.deepcopy(self.research),self.s,self.cid)
- def test_apollo_tool_scope_and_budget(self):
-  class Registry:
-   def __init__(self):self.handlers={}
-   def register(self,**kw):self.handlers[kw['name']]=kw['handler']
-  reg=Registry();self.session.root_task_id='root';self.session.task_roles={'contact':'contact_search','qa':'qa'};self.session.register(reg)
-  with patch('gtm.apollo.search',return_value={'contacts':[]}) as search:
-   tool=reg.handlers['continere_apollo_contacts']
-   self.assertIn('error',json.loads(tool({},task_id='qa')));search.assert_not_called()
-   self.assertNotIn('error',json.loads(tool({},task_id='contact')))
-   self.assertNotIn('error',json.loads(tool({},task_id='root')))
-   self.assertIn('error',json.loads(tool({},task_id='contact')));self.assertEqual(2,search.call_count)
-   self.assertEqual(self.research['website'],search.call_args.args[0])
  def test_cross_business_page_blocked(self):
   with patch('gtm.providers.fetch_website') as fetch:
    self.assertRaises(ValueError,self.session.read_page,'https://other.test/team');fetch.assert_not_called()
