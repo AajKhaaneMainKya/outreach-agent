@@ -47,3 +47,7 @@ vercel --prod --yes
 ```
 
 74 Python tests and 10 cloud checks pass. Live verification: anonymous access 401; signed-in root/state/saved prospects 200; invalid-ICP action queued then rejected by the WSL strategy gate with 400; cloud email sending and bad CSRF rejected with 403; saved Ceremony Spa hook/script present; email reply contents absent.
+
+## CRM
+
+CRM contacts, next actions, draft review and approval are available in the same private cloud dashboard. Email sending remains local-only. The worker excludes CRM email reply bodies, permission evidence text, private notes and Gmail identifiers from snapshots. See [CRM setup](CRM-EMAIL.md).

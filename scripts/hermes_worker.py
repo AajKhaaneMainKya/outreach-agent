@@ -67,7 +67,7 @@ def main():
             max_iterations=24 if session else 14, quiet_mode=True, save_trajectories=False, skip_context_files=True, skip_memory=True,
             ephemeral_system_prompt=(project / ('prompts/playbook-discovery.md' if discovery else 'prompts/playbook-orchestrator.md' if is_playbook else 'prompts/orchestrator.md')).read_text())
         names = {t['function']['name'] for t in agent.tools}
-        expected={'delegate_task'}|(({'continere_select_prospect','continere_message_board','continere_read_board',*maps_names} if discovery else {'continere_search_missing_evidence','continere_read_search_source','continere_get_evidence','continere_read_business_page','continere_note_progress','continere_save_findings','continere_message_board','continere_read_board',*maps_names}) if session else set())
+        expected={'delegate_task'}|(({'continere_select_prospect','continere_message_board','continere_read_board',*maps_names} if discovery else {'continere_search_missing_evidence','continere_read_search_source','continere_get_evidence','continere_read_business_page','continere_note_progress','continere_save_findings','continere_prepare_followup','continere_message_board','continere_read_board',*maps_names}) if session else set())
         if names != expected:
             raise RuntimeError('Unexpected agent capabilities; refusing to run')
         if session:

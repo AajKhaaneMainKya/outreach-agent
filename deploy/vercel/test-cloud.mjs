@@ -19,3 +19,9 @@ const post=authorized('/api/playbook/research','POST',{icp:'spa'});Object.assign
 r=await invoke(post);assert.equal(r.code,202);assert.match(r.body.cloud_job,/^[a-f0-9-]{36}$/);assert.equal(commands.at(-1)[0],'EVAL');assert.ok(!commands.at(-1)[1].includes('LPOP'));
 commands=[];const poll=request('/api/worker','POST',{op:'poll'});poll.headers.authorization='Bearer test-worker-only';await invoke(poll);assert.ok(commands[0][1].includes('LPOP'));assert.ok(!commands[0][1].includes('inflight'));
 console.log('10 cloud access, approval and one-time delivery checks passed');
+
+assert.equal(allowedAction('/api/crm/create'),true);
+assert.equal(allowedAction('/api/crm/'+'a'.repeat(32)+'/approve'),true);
+assert.equal(allowedAction('/api/crm/'+'a'.repeat(32)+'/send'),false);
+assert.equal((await invoke(authorized('/api/crm/'+'a'.repeat(32)+'/send','POST',{}))).code,403);
+console.log('CRM cloud preparation allowed; remote sending remains blocked');

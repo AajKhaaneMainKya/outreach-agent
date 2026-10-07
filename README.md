@@ -86,3 +86,7 @@ node deploy/vercel/test-cloud.mjs
 ```
 
 The repository contains source, policy, prompts, schemas, UI, deployment code and tests. It excludes credentials, saved prospects, outcomes, private settings, original PDF and runtime environments. A fresh clone does not include the owner's live workspace data.
+
+## Small CRM and requested email follow-up
+
+Open CRM in the unified dashboard. Add saved businesses, track the next action, record a specific request to email, prepare VJ-approved copy and approve a revision. Sending is a separate local action, off by default; replies/opt-outs are tracked privately in WSL. Sender: vijai@continerehealth.com. See [CRM and email setup](docs/CRM-EMAIL.md). No cold-email provider or alternate outreach strategy is introduced.

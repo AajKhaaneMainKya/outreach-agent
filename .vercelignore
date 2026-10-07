@@ -1,0 +1,2 @@
+# Only deploy/vercel is a publishable dashboard. Never upload the WSL project root.
+**

@@ -2,10 +2,11 @@ import base64
 import json
 import os
 import secrets
+import threading
 import urllib.parse
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from .config import ROOT, load_env
-from . import db, service, playbook, playbook_campaigns
+from . import db, service, playbook, playbook_campaigns, crm
 
 TOKEN = secrets.token_urlsafe(32)
 
@@ -61,6 +62,8 @@ class Handler(BaseHTTPRequestHandler):
         if not self.valid_host():
             return self.respond(403, {'error': 'Local access only'})
         path = urllib.parse.urlsplit(self.path).path
+        if path == '/api/crm':
+            return self.respond(200, crm.snapshot())
         if path == '/api/playbook/campaigns':
             return self.respond(200, playbook_campaigns.snapshot())
         if path == '/api/playbook':
@@ -75,7 +78,7 @@ class Handler(BaseHTTPRequestHandler):
             with service.LOCK:
                 return self.respond(200, service.snapshot())
         files = {'/': ('index.html', 'text/html; charset=utf-8'), '/rehab': ('index.html', 'text/html; charset=utf-8'), '/app.js': ('app.js', 'text/javascript'),
-            '/style.css': ('style.css', 'text/css'), '/playbook': ('index.html', 'text/html; charset=utf-8'), '/playbook.js': ('playbook.js', 'text/javascript'), '/playbook-fragment.html': ('playbook-fragment.html','text/html; charset=utf-8'), '/favicon.svg': ('favicon.svg', 'image/svg+xml')}
+            '/crm.js': ('crm.js', 'text/javascript'), '/style.css': ('style.css', 'text/css'), '/playbook': ('index.html', 'text/html; charset=utf-8'), '/playbook.js': ('playbook.js', 'text/javascript'), '/playbook-fragment.html': ('playbook-fragment.html','text/html; charset=utf-8'), '/favicon.svg': ('favicon.svg', 'image/svg+xml')}
         if path not in files:
             return self.respond(404, {'error': 'Not found'})
         file, mime = files[path]
@@ -96,7 +99,20 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(data, dict):
                 raise ValueError('Request must be an object')
             path = urllib.parse.urlsplit(self.path).path
-            if path == '/api/playbook/mission':
+            if path == '/api/crm/create': result=crm.create(data)
+            elif path == '/api/crm/settings': result=crm.save_settings(data)
+            elif path == '/api/crm/sync': result=crm.sync()
+            elif path.startswith('/api/crm/'):
+                parts=path.strip('/').split('/')
+                if len(parts)!=4:raise ValueError('Unknown CRM endpoint')
+                cid,action=parts[2:]
+                if action=='update':result=crm.update(cid,data)
+                elif action=='prepare':result=crm.prepare(cid)
+                elif action=='reply':result=crm.record_reply(cid,data)
+                elif action=='approve':result=crm.approve(cid,data)
+                elif action=='send':result=crm.send(cid,data)
+                else:raise ValueError('Unknown CRM action')
+            elif path == '/api/playbook/mission':
                 from .mission import geography,intent,research_batch
                 goal=data.get('goal','');scope=geography(goal)
                 with db.connect() as conn:
@@ -173,6 +189,17 @@ def main():
     db.init()
     playbook.init()
     playbook_campaigns.init()
+    crm.init()
+    def poll_crm_replies():
+        while True:
+            threading.Event().wait(120)
+            if os.environ.get('ALLOW_FOLLOWUP_SEND','').lower()=='true' and gmail_token_present():
+                try:crm.sync()
+                except Exception:pass  # No raw provider errors or credentials in logs; manual Sync surfaces status.
+    def gmail_token_present():
+        from .gmail import token_path
+        return token_path().exists()
+    threading.Thread(target=poll_crm_replies,daemon=True).start()
     port = int(os.environ.get('PORT', '8765'))
     server = ThreadingHTTPServer(('127.0.0.1', port), Handler)
     print(f'Continere GTM: http://127.0.0.1:{port} — sending disabled by default', flush=True)

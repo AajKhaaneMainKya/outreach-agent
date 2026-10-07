@@ -3,11 +3,11 @@ import {readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 export const config={api:{bodyParser:{sizeLimit:'4mb'}}};
 const prefix='continere:v1:';
-const reads=['/api/state','/api/playbook','/api/playbook/campaigns','/api/account','/api/entry-drafts'];
-const files={'/':'index.html','/rehab':'index.html','/playbook':'index.html','/app.js':'app.js','/playbook.js':'playbook.js','/playbook-fragment.html':'playbook-fragment.html','/style.css':'style.css','/favicon.svg':'favicon.svg'};
+const reads=['/api/state','/api/playbook','/api/playbook/campaigns','/api/account','/api/entry-drafts','/api/crm'];
+const files={'/':'index.html','/rehab':'index.html','/playbook':'index.html','/app.js':'app.js','/playbook.js':'playbook.js','/playbook-fragment.html':'playbook-fragment.html','/style.css':'style.css','/favicon.svg':'favicon.svg','/crm.js':'crm.js'};
 const mime={html:'text/html; charset=utf-8',js:'text/javascript',css:'text/css',svg:'image/svg+xml'};
 const equal=(a,b)=>{const x=Buffer.from(a||''),y=Buffer.from(b||'');return x.length===y.length&&timingSafeEqual(x,y)};
-export function allowedAction(path){return ['/api/run','/api/config','/api/sync','/api/playbook/research','/api/playbook/mission','/api/playbook/create'].includes(path)||/^\/api\/playbook\/[a-f0-9]{32}\/(prepare-script|advance|park|retry|edit|approve|handover|outcome)$/.test(path)||/^\/api\/prospect\/[a-f0-9]{32}\/(approve|reject|edit|suppress|regenerate|reply)$/.test(path);}
+export function allowedAction(path){return ['/api/crm/create','/api/crm/settings','/api/run','/api/config','/api/sync','/api/playbook/research','/api/playbook/mission','/api/playbook/create'].includes(path)||/^\/api\/playbook\/[a-f0-9]{32}\/(prepare-script|advance|park|retry|edit|approve|handover|outcome)$/.test(path)||/^\/api\/crm\/[a-f0-9]{32}\/(update|prepare|approve)$/.test(path)||/^\/api\/prospect\/[a-f0-9]{32}\/(approve|reject|edit|suppress|regenerate|reply)$/.test(path);}
 export async function redis(command){
  const endpoint=process.env.UPSTASH_REDIS_REST_URL||process.env.KV_REST_API_URL;
  const token=process.env.UPSTASH_REDIS_REST_TOKEN||process.env.KV_REST_API_TOKEN;

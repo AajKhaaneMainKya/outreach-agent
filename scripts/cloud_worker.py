@@ -2,10 +2,10 @@
 import argparse,fcntl,hashlib,json,re,sqlite3,time,urllib.request,urllib.error
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-READS=('/api/state','/api/playbook','/api/playbook/campaigns','/api/account','/api/entry-drafts')
+READS=('/api/state','/api/playbook','/api/playbook/campaigns','/api/account','/api/entry-drafts','/api/crm')
 LOCAL='http://127.0.0.1:8765'
 def allowed(path):
-    return path in ('/api/run','/api/config','/api/sync','/api/playbook/research','/api/playbook/mission','/api/playbook/create') or bool(re.fullmatch(r'/api/playbook/[a-f0-9]{32}/(prepare-script|advance|park|retry|edit|approve|handover|outcome)',path)) or bool(re.fullmatch(r'/api/prospect/[a-f0-9]{32}/(approve|reject|edit|suppress|regenerate|reply)',path))
+    return path in ('/api/crm/create','/api/crm/settings','/api/run','/api/config','/api/sync','/api/playbook/research','/api/playbook/mission','/api/playbook/create') or bool(re.fullmatch(r'/api/playbook/[a-f0-9]{32}/(prepare-script|advance|park|retry|edit|approve|handover|outcome)',path)) or bool(re.fullmatch(r'/api/crm/[a-f0-9]{32}/(update|prepare|approve)',path)) or bool(re.fullmatch(r'/api/prospect/[a-f0-9]{32}/(approve|reject|edit|suppress|regenerate|reply)',path))
 def cloud(config,body):
     req=urllib.request.Request(config['origin']+'/api/worker',data=json.dumps(body).encode(),headers={'Authorization':'Bearer '+config['worker_token'],'Content-Type':'application/json'})
     with urllib.request.urlopen(req,timeout=25) as r:return json.load(r)
@@ -16,6 +16,14 @@ def snapshots():
     # Only approved workspace records. Email reply bodies remain solely in WSL.
     out['/api/state']['replies']=[]
     out['/api/state']['integrations']['send_enabled']=False
+    crm=out['/api/crm'];crm['send_enabled']=False
+    for contact in crm.get('contacts',[]):
+        contact['notes']=''
+        contact.get('consent',{}).pop('evidence',None)
+        for activity in contact.get('activity',[]):
+            if activity.get('kind') in ('reply','opt_out'):activity['detail']='Reply stored privately in WSL'
+        for email in contact.get('emails',[]):
+            email.pop('gmail_thread',None);email.pop('gmail_id',None)
     return out
 
 def execute(job):
