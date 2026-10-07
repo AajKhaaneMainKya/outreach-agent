@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Approval queue draft",
+  "type": "object",
+  "required": ["subject", "body", "evidence_id", "claim_id", "qa_pass", "strategy_digest", "edited"],
+  "properties": {
+    "subject": {"type": "string", "minLength": 1, "maxLength": 200, "pattern": "^[^\\r\\n]+$"},
+    "body": {"type": "string", "minLength": 1, "maxLength": 6000},
+    "evidence_id": {"type": "string"},
+    "claim_id": {"type": "string"},
+    "qa_pass": {"type": "boolean"},
+    "strategy_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "reason": {"type": "string"},
+    "edited": {"type": "boolean"}
+  }
+}

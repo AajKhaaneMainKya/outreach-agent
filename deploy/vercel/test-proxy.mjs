@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import handler from './proxy-retired.mjs';
+const invoke=async(req)=>{const r={headers:{},setHeader(k,v){this.headers[k]=v},status(v){this.code=v;return this},send(v){this.body=v;return this},end(){return this}};await handler(req,r);return r};
+let req={method:'GET',headers:{},url:'/',query:{__path:''}};
+assert.equal((await invoke(req)).code,503);
+process.env.GTM_REMOTE_PASSWORD='test-password-for-unit-checks-only';process.env.GTM_PUBLIC_ORIGIN='https://example.vercel.app';process.env.GTM_BACKEND_URL='https://test.example';
+assert.equal((await invoke(req)).code,401);
+req.headers.authorization='Basic '+Buffer.from('continere:'+process.env.GTM_REMOTE_PASSWORD).toString('base64');
+assert.equal((await invoke({...req,method:'POST',headers:{...req.headers,origin:'https://wrong.example'}})).code,403);
+assert.equal((await invoke({...req,query:{__path:'.env'}})).code,404);
+let upstream;
+globalThis.fetch=async(url,options)=>{upstream={url:String(url),options};return new Response('workspace',{status:200,headers:{'Content-Type':'text/html'}})};
+assert.equal((await invoke(req)).code,200);assert.equal(upstream.url,'https://test.example/');
+console.log('5 deployment gateway checks passed');

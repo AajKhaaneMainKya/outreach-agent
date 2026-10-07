@@ -1,0 +1,12 @@
+{
+  "geography": "Texas, USA",
+  "query": "rehabilitation providers",
+  "limit": 10,
+  "min_score": 60,
+  "daily_send_limit": 5,
+  "domain_cooldown_days": 30,
+  "sender_email": "",
+  "sender_name": "",
+  "postal_address": "",
+  "domain_readiness_confirmed": false
+}

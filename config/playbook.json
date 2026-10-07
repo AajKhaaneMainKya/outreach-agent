@@ -1,0 +1,114 @@
+{
+  "source": {
+    "file": "knowledge/GMB-Outbound-Playbook-Spa-Dietitian.pdf",
+    "sha256": "03c16e24995d0f362a277377b794c81f280e92ae3e7eb17df676ce875d20321b",
+    "pages": 4
+  },
+  "offer": "2 weeks free",
+  "money_line": "You pay one flat fee. Nobody is paid per patient, in either direction.",
+  "money_rule": "Never describe the partner as earning per referral. They run a program and set their own prices.",
+  "clinical_rule": "Clinical services are delivered by licensed clinicians in the patient's state. Everything ships home and is self-administered.",
+  "escalation": "This playbook does not cover that question. Ask VJ.",
+  "workflow": [
+    "Qualify (3 min): GMB Who/Skip; spa menu injectables check; count RDNs on website.",
+    "Read reviews (5 min): newest first; recent 5-star exact line under 15 words.",
+    "Context (2 min): spa rival med spa in People also search for, never name it on call; dietitian insurance/cash-pay on website.",
+    "Pick channel (1 min): verified line-type lookup; landline/no-text call, mobile/VoIP manual text.",
+    "Reach out (4 min): review first, opener second, pause for answer, two-sentence pitch, ask.",
+    "Log (1 min): Date | Business | ICP | Owner | Review line | Channel | Outcome | Next step | Due."
+  ],
+  "rules": [
+    "One prospect at a time. Short, numbered coaching with an exact next action.",
+    "Use only these scripts, offers and rules; substitute bracketed fields only.",
+    "Missing browsing: ask for review count, 5 newest reviews, services/menu, People also search for names and GMB phone.",
+    "No invented or altered reviews. Choose recent 5-star line naming staff/service, under 15 words.",
+    "Business GMB listed number only; never personal cells from elsewhere.",
+    "Texts typed and sent by hand from own phone, one at a time. No bulk tools until counsel signs off; this application never sends texts.",
+    "8am to 8pm prospect-local time; unknown timezone blocks contact.",
+    "Name and Continere first line, Reply STOP every text, one link.",
+    "One day-3 follow-up only if no reply; then stop. Two texts maximum per business, ever, including question replies.",
+    "STOP logged immediately, no further contact through any channel.",
+    "Fixed two-week free trial only; no credits, discounts or invented programs.",
+    "No medication names, weight-loss/results claims or promises of Botox, peels or in-clinic treatment.",
+    "Money line must be verbatim. Legal, pricing or new ICP questions not covered: ask VJ.",
+    "Call win: a dated 15-minute calendar slot. Think about it is not a next step: offer two times or ask to text link.",
+    "Voicemail says send the link but never bypass line-type, two-text, STOP, local-time or approval gates. No alternative delivery channel is invented."
+  ],
+  "gatekeeper": "Hi, this is [Name] with Continere. Who's the best person to talk to about adding a new service?",
+  "review_open": "I was reading your Google reviews. A client said [Staff][review line]. Quick question:",
+  "ask": "We're giving you two weeks free. Do you have 15 minutes this week? I can book it now, or text you the link.",
+  "voicemail": "Hi, [Name] from Continere, calling about one of your Google reviews and a way to add doctor-supervised weight care under your own name. I'll send the link. Thanks.",
+  "spa": {
+    "who": "Independent day spa. Owner-run, 1 location, 3+ staff, 50+ reviews, open 2+ years.",
+    "skip": "Lists Botox, filler, med spa or aesthetics. Chains, franchises.",
+    "search": [
+      "day spa",
+      "facial spa",
+      "massage spa",
+      "skin care studio"
+    ],
+    "pain": "Loyal clients leave to a med spa for weight loss and menopause care. The spa can't follow without a medical team.",
+    "hook": "5-star line naming staff member or facial; loyalty and trust with skin.",
+    "opener": "when clients like that ask about weight loss or menopause, where do you send them?",
+    "opener_question": "When a client asks you about weight loss or menopause, where do you send them?",
+    "programs": [
+      "Weight care",
+      "Hormone therapy for women"
+    ],
+    "link": "continerehealth.com/spa",
+    "pitch": "That's why I called. Continere lets [Spa] offer doctor-supervised weight loss and hormone therapy for women under your own name. Our doctors do the consult and prescribing, the medication ships to your client's home, and you don't need a medical director or a new treatment room.",
+    "text1": "Hi, this is [Name] with Continere. One of your guests said [Staff] gave her \"[review line]\" Clients that loyal are buying weight-loss and menopause care somewhere else. Continere lets [Spa] offer both under your own name. A doctor oversees everything and it ships to their door. No medical director needed. You earn between visits. Try it free for 2 weeks:\ncontinerehealth.com/spa\nReply STOP and I won't text again.",
+    "text2": "Hi [Spa], [Name] from Continere again. Do your clients ever ask about menopause support? Happy to show you in 15 min:\ncontinerehealth.com/spa. Reply STOP to opt out.",
+    "reply_question": "How does it work?",
+    "reply": "Our doctors do the consult, the pharmacy ships to your client, you set the price under your name. Easiest is 15 min:\ncontinerehealth.com/spa",
+    "objections": {
+      "Don't I need a medical director?": "No. Our licensed doctors do every consult and prescription. Nothing clinical happens inside your spa.",
+      "Can you do Botox or peels?": "No. Everything ships home and is self-administered. That's why there's no room, no nurse, no liability on your floor."
+    },
+    "scale_or_kill": "Under 5 booked calls from 50 dials: park spas."
+  },
+  "dietitian": {
+    "who": "Dietitian group practice. 3+ RDNs, some cash-pay clients, 50+ reviews.",
+    "skip": "Solo RDNs, hospital-employed, insurance-only with no cash-pay.",
+    "search": [
+      "dietitian",
+      "nutritionist",
+      "nutrition counseling",
+      "weight management dietitian"
+    ],
+    "pain": "Work between visits is unpaid. Insurance only pays for visit hours. They can't prescribe, so they refer out.",
+    "hook": "5-star line naming a dietitian or a result the client felt; relationship worth keeping. A results hook cannot be used in outbound claims.",
+    "opener": "when you're messaging clients between visits, are you getting paid for that?",
+    "opener_question": "When you're messaging a client between visits, are you getting paid for that?",
+    "programs": [
+      "Weight care",
+      "Menopause care",
+      "Labs",
+      "Medication support (free)"
+    ],
+    "link": "continerehealth.com/dietitians",
+    "pitch": "That's the gap we close. Continere lets [Practice] add doctor-supervised weight care and menopause programs under your own name. Our doctors prescribe, the pharmacy ships, and you get paid for the work between visits.",
+    "text1": "Hi, this is [Name] with Continere. A client wrote that [Staff] \"[review line]\" Quick question: when you message clients between visits, are you getting paid for it? Continere lets [Practice] add doctor-supervised weight care and menopause programs under your name, so that work pays. Try it free for 2 weeks: continerehealth.com/dietitians\nReply STOP and I won't text again.",
+    "text2": "Hi [Practice], [Name] from Continere again. When a client needs something prescribed, where do you send them? Happy to show you another way in 15 min:\ncontinerehealth.com/dietitians. Reply STOP to opt out.",
+    "reply_question": "Is this within my scope?",
+    "reply": "Yes. You run the program, our doctors make every clinical decision and prescribe. Easiest is 15 min:\ncontinerehealth.com/dietitians",
+    "objections": {
+      "That's outside my scope.": "It is, which is why you never touch it. You run the program; our doctors make every clinical decision.",
+      "We run everything in our EHR.": "The program lives on your website with one line of code. Tell us your EHR and we'll look at connecting it."
+    },
+    "scale_or_kill": "Between-visits answer repeats on 3 calls: it becomes the headline."
+  },
+  "conflicts": [
+    "Page 3 question replies omit Reply STOP and sender introduction. Preserve them for call coaching only; do not create an altered text. Escalate to VJ for an approved compliant text.",
+    "Dietitian result hooks cannot override no-results-claims. Choose a staff/relationship hook; if unavailable, ask VJ.",
+    "One-prospect timing is approximate: individual listed steps total 16 minutes."
+  ],
+  "worked_example": {
+    "business": "Spa Jardin",
+    "qualification": "Independent day spa, 197 reviews, facials-led, no injectables. Passes in the example; still verify full Who criteria for live use.",
+    "review": "Elena gave a guest \"the absolute best facial I have ever had.\"",
+    "loyalty": "A husband buys his wife a gift card every month.",
+    "context": "SOHO Wellness & Med Spa (about 4.7x their reviews) in People also search for. Never name it on call.",
+    "channel": "Looks like landline in example; verify lookup before contact."
+  }
+}

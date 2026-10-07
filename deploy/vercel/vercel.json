@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/workspace?__path=$1"
+    }
+  ],
+  "functions": {
+    "api/workspace.mjs": {
+      "maxDuration": 30,
+      "includeFiles": "assets/**"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+# Dedicated profile: export HERMES_HOME="$PWD/data/hermes" before running hermes model.
+# Let hermes model write the model identifier available to your account.
+model:
+  provider: openai-codex
+agent:
+  max_turns: 14
+delegation:
+  max_concurrent_children: 2
+  inherit_mcp_toolsets: false
+# No Gmail/terminal/MCP tools. The app passes enabled_toolsets=['delegation'].
+# Google Places is accessed through a bounded application adapter.

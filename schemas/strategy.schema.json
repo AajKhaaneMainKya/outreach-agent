@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Continere strategy input (complete for live use)",
+  "type": "object",
+  "required": ["company", "version", "confirmed_by", "icp", "positioning", "approved_claims", "pain_hypotheses", "cta", "prohibited_claims"],
+  "properties": {
+    "company": {"const": "Continere"},
+    "version": {"type": "string"},
+    "confirmed_by": {"type": "string", "minLength": 1},
+    "positioning": {"type": "string", "minLength": 1},
+    "cta": {"type": "string", "minLength": 1},
+    "notes": {"type": "string"},
+    "icp": {
+      "type": "object", "required": ["id", "description", "include_terms", "exclude_terms", "buyer_roles"],
+      "properties": {
+        "id": {"const": "rehab-providers"},
+        "description": {"type": "string", "minLength": 1},
+        "include_terms": {"type": "array", "items": {"type": "string"}},
+        "exclude_terms": {"type": "array", "items": {"type": "string"}},
+        "buyer_roles": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "approved_claims": {
+      "type": "array", "minItems": 1, "maxItems": 30,
+      "items": {"type": "object", "required": ["id", "text", "source"], "properties": {
+        "id": {"type": "string", "minLength": 1}, "text": {"type": "string", "minLength": 1}, "source": {"type": "string", "minLength": 1}
+      }}
+    },
+    "pain_hypotheses": {"type": "array", "items": {"type": "string"}},
+    "prohibited_claims": {"type": "array", "items": {"type": "string"}}
+  }
+}

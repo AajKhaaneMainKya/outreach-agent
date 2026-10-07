@@ -1,0 +1,18 @@
+{
+  "company": "Continere",
+  "version": "1",
+  "confirmed_by": "",
+  "icp": {
+    "id": "rehab-providers",
+    "description": "",
+    "include_terms": ["rehabilitation", "rehab", "physical therapy", "physiotherapy"],
+    "exclude_terms": [],
+    "buyer_roles": []
+  },
+  "positioning": "",
+  "pain_hypotheses": [],
+  "approved_claims": [],
+  "cta": "",
+  "prohibited_claims": ["guaranteed results", "HIPAA compliant", "clinically proven"],
+  "notes": "Fill with user-approved Continere knowledge. Term defaults are provisional discovery filters, not a confirmed ICP. Claims require id, text and source. Pain hypotheses are never stated as facts."
+}

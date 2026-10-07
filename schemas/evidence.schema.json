@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Retrieved source excerpt",
+  "type": "object",
+  "required": ["id", "quote", "url", "retrieved_at"],
+  "properties": {
+    "id": {"type": "string"},
+    "quote": {"type": "string", "maxLength": 260},
+    "url": {"type": "string", "format": "uri"},
+    "retrieved_at": {"type": "string", "format": "date-time"}
+  }
+}
